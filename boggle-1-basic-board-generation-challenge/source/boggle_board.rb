@@ -6,6 +6,12 @@ class BoggleBoard
     @spaces = Array.new(16, "_")
 
 
+    #creates an array with letters A-Z
+    @letters = Array.new()
+
+    ("A".."Z").map do |letter|
+      @letters.push(letter)
+    end
 
 
   end
@@ -31,7 +37,7 @@ class BoggleBoard
     output_string = String.new
 
     #make a variable so we don't mess up instance variable
-    letter_array = @spaces
+    letter_array = @letters.shuffle
 
 
     4.times do
@@ -40,24 +46,7 @@ class BoggleBoard
     end
 
 
-    # j = 0
-    # while j < 4
-    #
-    #   i = 0
-    #
-    #   while i < 4
-    #
-    #     output_string = output_string + letter_array[i]
-    #
-    #     i = i + 1
-    #   end
-    #
-    #
-    #   output_string = output_string + "\n"
-    #
-    #   j = j + 1
-    #
-    # end
+
 
     puts output_string
 
