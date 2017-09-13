@@ -85,7 +85,7 @@ class BoggleBoard
 
     ########################################
 
-    # WORKS FOR WORDS HORIZONTALLY LEFT TO RIGHT
+    # WORKS FOR WORDS HORIZONTALLY LEFT TO RIGHT OR REVERSED
 
     guess = ""
 
@@ -98,7 +98,7 @@ class BoggleBoard
 
       guess = gets.chomp.upcase
 
-      if no_spaces_string[0..3].include?(guess) || no_spaces_string[4..7].include?(guess) || no_spaces_string[8..11].include?(guess) || no_spaces_string[12..15].include?(guess)
+      if no_spaces_string[0..3].include?(guess) || no_spaces_string[4..7].include?(guess) || no_spaces_string[8..11].include?(guess) || no_spaces_string[12..15].include?(guess) || no_spaces_string[0..3].include?(guess.reverse) || no_spaces_string[4..7].include?(guess.reverse) || no_spaces_string[8..11].include?(guess.reverse) || no_spaces_string[12..15].include?(guess.reverse)
 
         valid_words << guess
         # puts "valid"
