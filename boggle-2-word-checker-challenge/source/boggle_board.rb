@@ -83,9 +83,10 @@ class BoggleBoard
         # OR CHECK GUESS REVERSED
       # (also vertically) create substrings to represent vertical lines, and same as above
 
+      #GRID
+
     ########################################
 
-    # WORKS FOR WORDS HORIZONTALLY LEFT TO RIGHT OR REVERSED
 
     guess = ""
 
@@ -98,6 +99,7 @@ class BoggleBoard
 
       guess = gets.chomp.upcase
 
+      # WORKS FOR WORDS HORIZONTALLY LEFT TO RIGHT OR REVERSED
       if no_spaces_string[0..3].include?(guess) || no_spaces_string[4..7].include?(guess) || no_spaces_string[8..11].include?(guess) || no_spaces_string[12..15].include?(guess) || no_spaces_string[0..3].include?(guess.reverse) || no_spaces_string[4..7].include?(guess.reverse) || no_spaces_string[8..11].include?(guess.reverse) || no_spaces_string[12..15].include?(guess.reverse)
 
         valid_words << guess
@@ -115,7 +117,7 @@ class BoggleBoard
     puts "Your valid words include: " + valid_words.to_s
 
     # [0..-2] to remove "done" from array
-    puts "Your INvalid words include: " + not_valid_words[0..-2].to_s # FIXME: will miss a word if "done" is a valid word (therefore ending up in valid_words)
+    puts "These words were not on the board: " + not_valid_words[0..-2].to_s # FIXME: will miss a word if "done" is a valid word (therefore ending up in valid_words)
 
   end
 
