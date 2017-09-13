@@ -54,41 +54,56 @@ class BoggleBoard
     letter_array = @die_face.shuffle
 
     4.times do
-      # removes first 4 letters from array and adds them to output_string
-      output_string << letter_array.shift(4).join(' ') + "\n"
+      output_string << letter_array.shift(4).join('  ') + " \n"
+      output_string.gsub!('Q ','Qu')
     end
 
-    output_string
+    puts output_string
   end
 
   # Defining to_s on an object controls how the object is
   # represented as a string, e.g., when you pass it to puts
   def to_s
 
-    # # a new string for the output
-    # output_string = String.new
-    #
-    #
-    # #make a variable so we don't mess up instance variable
-    # # use .shuffle to randomise the order of elements in the array
-    # letter_array = @alphabet.shuffle
-    #
-    #
-    # 4.times do
-    #   # removes first 4 letters from array and adds them to output_string
-    #   output_string << letter_array.shift(4).join(' ') + "\n"
-    # end
+    # a new string for the output
+    output_string = String.new
 
 
-    # output_string
+    #make a variable so we don't mess up instance variable
+    # use .shuffle to randomise the order of elements in the array
+    letter_array = @spaces.shuffle
 
 
-    #############
+    4.times do
+      # removes first 4 letters from array and adds them to output_string
+      output_string << letter_array.shift(4).join(' ') + "\n"
+    end
 
-    shake!
+    # remove last "\n"
+    output_string = output_string[0..-2]
+
+    output_string
+
 
   end
 end
 
 
-puts BoggleBoard.new
+my_board = BoggleBoard.new
+
+puts "Welcome to BOGGLE!"
+
+puts my_board.to_s
+
+puts "Want to play? y/n"
+
+user_choice = gets.chomp.downcase
+
+if user_choice == "y"
+  puts "\n"
+  puts my_board.shake!
+elsif user_choice == "n"
+  puts "You're no fun, bye"
+else
+  puts "Yes or no?? Type 'y' or 'n'"
+end
