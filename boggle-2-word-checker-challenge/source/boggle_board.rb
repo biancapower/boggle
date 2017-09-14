@@ -50,6 +50,13 @@ class BoggleBoard
 
     @die_face = Array.new()
 
+    @line_1 = Array.new()
+    @line_2 = Array.new()
+    @line_3 = Array.new()
+    @line_4 = Array.new()
+
+    @boggle_board = Array.new()
+
     i = 0
     while i < 16
       @die_face << @dice[i].split('').sample(1)
@@ -60,14 +67,111 @@ class BoggleBoard
 
     4.times do
       output_string << letter_array.shift(4).join('  ') + " \n"
-      output_string.gsub!('Q ','Qu')
+      # output_string.gsub!('Q ','Qu') #FIXME: fix Q a different way
     end
 
+    # prints out shaken boggle board
     puts output_string
 
-    no_spaces_string = output_string.delete(' ').delete("\n")
 
-    # puts "no spaces: " + no_spaces_string
+    # create a string without spaces or newline characters
+    # no_spaces_string = output_string.delete(' ').delete("\n")
+
+    lines = output_string.delete(' ').delete("\n").split('')
+
+    @line_1 = lines[0..3]
+    @line_2 = lines[4..7]
+    @line_3 = lines[8..11]
+    @line_4 = lines[12..15]
+
+    # array of arrays
+    @boggle_board = [@line_1, @line_2, @line_3, @line_4]
+
+
+    guess = " "
+    @matches = Array.new()
+    @all_matches = Array.new()
+    @word = ""
+
+    while guess != ""
+
+      puts "\n Enter a word, or press ENTER to end game: "
+
+      guess = gets.chomp.upcase
+
+      # search through @boggle_board to find location of first letter of guess [x, y]
+      # use .select.first
+
+
+
+      #FIXME: just deal with first instance of letter
+
+      l = 0
+
+      while l < guess.length
+
+        y = 0
+
+        while y < 4
+
+          x = 0
+
+          while x < 4
+            if @boggle_board[x][y] == guess[l]
+
+              #adds location of matches to an array, then grab the first x,y pair and use that as my starting point (first letter)
+                # can then use the next one to test for a valid word if the first one doesn't work out
+
+                # create a 3 level deep array, e.g.:
+                # [
+                #   [[0][1], [2][0], [][]], #<- location of matches for guess[0]
+                #   [[0][2], [1][1]]  #<- location of matches for guess[1]
+                # ]
+
+              @coordinates = [x, y]
+
+              @matches << @coordinates
+
+
+            end
+            x = x + 1
+          end
+
+          y = y + 1
+
+        end
+
+        @all_matches << @matches
+
+        l = l + 1
+      end
+
+    end
+
+    print @matches    #CHECK WHAT IS HAPPENING WHEN THIS RUNS
+
+    puts "******"
+
+    print @all_matches
+
+
+
+
+    # search touching squares for second letter of guess
+      # touching coordinates are (where resulting coordinate >= 0):
+        # [x + 1, y]
+        # [x - 1, y]
+        # [x, y + 1]
+        # [x, y - 1]
+        # [x + 1, y + 1]
+        # [x + 1, y - 1]
+        # [x - 1, y + 1]
+        # [x - 1, y - 1]
+    # repeat for remaining letters of word
+      # make sure no letter is used twice (i.e. can't go back over a letter that has already been used)
+
+
+
 
 
     ########################################
@@ -88,36 +192,36 @@ class BoggleBoard
     ########################################
 
 
-    guess = ""
-
-    valid_words = Array.new()
-    not_valid_words = Array.new()
-
-    while guess != "DONE"
-
-      puts "\n Enter a word, or type DONE to end game: "
-
-      guess = gets.chomp.upcase
-
-      # WORKS FOR WORDS HORIZONTALLY LEFT TO RIGHT OR REVERSED
-      if no_spaces_string[0..3].include?(guess) || no_spaces_string[4..7].include?(guess) || no_spaces_string[8..11].include?(guess) || no_spaces_string[12..15].include?(guess) || no_spaces_string[0..3].include?(guess.reverse) || no_spaces_string[4..7].include?(guess.reverse) || no_spaces_string[8..11].include?(guess.reverse) || no_spaces_string[12..15].include?(guess.reverse)
-
-        valid_words << guess
-        # puts "valid"
-
-      else
-
-        not_valid_words << guess
-        # puts "invalid"
-
-      end
-
-    end
-
-    puts "Your valid words include: " + valid_words.to_s
-
-    # [0..-2] to remove "done" from array
-    puts "These words were not on the board: " + not_valid_words[0..-2].to_s # FIXME: will miss a word if "done" is a valid word (therefore ending up in valid_words)
+    # guess = ""
+    #
+    # valid_words = Array.new()
+    # not_valid_words = Array.new()
+    #
+    # while guess != "DONE"
+    #
+    #   puts "\n Enter a word, or type DONE to end game: "
+    #
+    #   guess = gets.chomp.upcase
+    #
+    #   # WORKS FOR WORDS HORIZONTALLY LEFT TO RIGHT OR REVERSED
+    #   if no_spaces_string[0..3].include?(guess) || no_spaces_string[4..7].include?(guess) || no_spaces_string[8..11].include?(guess) || no_spaces_string[12..15].include?(guess) || no_spaces_string[0..3].include?(guess.reverse) || no_spaces_string[4..7].include?(guess.reverse) || no_spaces_string[8..11].include?(guess.reverse) || no_spaces_string[12..15].include?(guess.reverse)
+    #
+    #     valid_words << guess
+    #     # puts "valid"
+    #
+    #   else
+    #
+    #     not_valid_words << guess
+    #     # puts "invalid"
+    #
+    #   end
+    #
+    # end
+    #
+    # puts "Your valid words include: " + valid_words.to_s
+    #
+    # # [0..-2] to remove "done" from array
+    # puts "These words were not on the board: " + not_valid_words[0..-2].to_s # FIXME: will miss a word if "done" is a valid word (therefore ending up in valid_words)
 
   end
 
