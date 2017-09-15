@@ -91,32 +91,29 @@ class BoggleBoard
     guess = " "
     @matches = Array.new()
     @all_matches = Array.new()
+    @coordinates = Array.new()
     @word = ""
 
-    while guess != ""
+    ######################START######################
+
+    # while guess != ""
 
       puts "\n Enter a word, or press ENTER to end game: "
 
       guess = gets.chomp.upcase
 
-      # search through @boggle_board to find location of first letter of guess [x, y]
-      # use .select.first
-
-
-
-      #FIXME: just deal with first instance of letter
+      # search through @boggle_board to find all locations of first letter of guess [x, y]
 
       l = 0
-
       while l < guess.length
 
-        y = 0
+        @matches = []
 
-        while y < 4
+        x = 0
+        while x < 4
+          y = 0
+          while y < 4
 
-          x = 0
-
-          while x < 4
             if @boggle_board[x][y] == guess[l]
 
               #adds location of matches to an array, then grab the first x,y pair and use that as my starting point (first letter)
@@ -132,25 +129,30 @@ class BoggleBoard
 
               @matches << @coordinates
 
+              # print @coordinates
+              # puts "\n"
 
             end
-            x = x + 1
+
+            y = y + 1
           end
-
-          y = y + 1
-
+          x = x + 1
         end
 
         @all_matches << @matches
-
         l = l + 1
+
       end
+    # end
 
-    end
 
-    print @matches    #CHECK WHAT IS HAPPENING WHEN THIS RUNS
+    ######################END######################
 
-    puts "******"
+
+
+    # print @matches
+    #
+    # puts "\n******"
 
     print @all_matches
 
