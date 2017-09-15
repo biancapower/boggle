@@ -102,8 +102,6 @@ class BoggleBoard
 
       guess = gets.chomp.upcase
 
-      # search through @boggle_board to find all locations of first letter of guess [x, y]
-
       l = 0
       while l < guess.length
 
@@ -116,9 +114,6 @@ class BoggleBoard
 
             if @boggle_board[x][y] == guess[l]
 
-              #adds location of matches to an array, then grab the first x,y pair and use that as my starting point (first letter)
-                # can then use the next one to test for a valid word if the first one doesn't work out
-
                 # create a 3 level deep array, e.g.:
                 # [
                 #   [[0][1], [2][0], [][]], #<- location of matches for guess[0]
@@ -129,8 +124,6 @@ class BoggleBoard
 
               @matches << @coordinates
 
-              # print @coordinates
-              # puts "\n"
 
             end
 
